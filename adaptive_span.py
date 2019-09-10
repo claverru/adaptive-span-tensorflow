@@ -3,7 +3,17 @@ import math
 
 
 class AdaptiveMask(tf.keras.layers.Layer):
-	"""docstring for AdaptiveMask"""
+	"""Soft masking function for adaptive size.
+	It masks out the last K values of an input. The masking value
+	goes from 1 to 0 gradually, so K can be learned with
+	back-propagation.
+	Args:
+		max_size: maximum size (i.e. input dimension)
+		ramp_size: size of the ramp going from 0 to 1
+		init_val: initial size proportion not to be masked out
+		shape: learn multiple sizes independent of each other
+	"""
+	
 	def __init__(self, max_size, ramp_size, init_val=0, shape=(1,)):
 		super(AdaptiveMask, self).__init__()
 		self._max_size = max_size
